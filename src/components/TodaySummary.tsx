@@ -19,18 +19,35 @@ const TodaySummary = () => {
     fat: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [targetCalories, setTargetCalories] = useState(2000);
 
   // Daily goals
   const goals = {
-    calories: 2000,
+    calories: targetCalories,
     protein: 150,
     carbs: 250,
     fat: 65,
   };
 
   useEffect(() => {
+    fetchProfile();
     fetchTodaySummary();
   }, []);
+
+  const fetchProfile = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const { data } = await supabase
+      .from("profiles")
+      .select("target_calories")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (data) {
+      setTargetCalories(data.target_calories);
+    }
+  };
 
   const fetchTodaySummary = async () => {
     try {

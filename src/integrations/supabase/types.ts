@@ -56,6 +56,48 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          activity_level: string | null
+          age: number | null
+          created_at: string
+          gender: string | null
+          height: number
+          id: string
+          name: string
+          target_calories: number
+          updated_at: string
+          user_id: string
+          weight: number
+        }
+        Insert: {
+          activity_level?: string | null
+          age?: number | null
+          created_at?: string
+          gender?: string | null
+          height: number
+          id?: string
+          name: string
+          target_calories?: number
+          updated_at?: string
+          user_id: string
+          weight: number
+        }
+        Update: {
+          activity_level?: string | null
+          age?: number | null
+          created_at?: string
+          gender?: string | null
+          height?: number
+          id?: string
+          name?: string
+          target_calories?: number
+          updated_at?: string
+          user_id?: string
+          weight?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
