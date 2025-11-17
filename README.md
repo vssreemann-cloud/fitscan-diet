@@ -2,7 +2,6 @@
 
 ## Project info
 
-**URL** preview : https://lovable.dev/projects/eea1a40c-3190-4ba9-8dfb-fa5e0d3104cd
 
 Fitscan is a calorie tracking and wellness application designed to assist individuals in maintaining their health and gaining control over their eating habits.
 
@@ -34,6 +33,9 @@ SOLUTION - FITSCAN is a calorie tracking application that utilizes artificial in
 -google gemini api
 -chatgpt
 -vercel
+
+
+**URL** preview : https://lovable.dev/projects/eea1a40c-3190-4ba9-8dfb-fa5e0d3104cd
 
 
 
