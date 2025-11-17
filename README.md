@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/eea1a40c-3190-4ba9-8dfb-fa5e0d3104cd
+**URL** preview : https://lovable.dev/projects/eea1a40c-3190-4ba9-8dfb-fa5e0d3104cd
 
 Fitscan is a calorie tracking and wellness application designed to assist individuals in maintaining their health and gaining control over their eating habits.
 
