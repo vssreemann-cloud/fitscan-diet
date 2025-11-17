@@ -3,20 +3,18 @@ import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { Flame, Activity, Beef, Sandwich, Droplets } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
-
 interface DailySummary {
   calories: number;
   protein: number;
   carbs: number;
   fat: number;
 }
-
 const TodaySummary = () => {
   const [summary, setSummary] = useState<DailySummary>({
     calories: 0,
     protein: 0,
     carbs: 0,
-    fat: 0,
+    fat: 0
   });
   const [loading, setLoading] = useState(true);
   const [targetCalories, setTargetCalories] = useState(2000);
@@ -26,49 +24,46 @@ const TodaySummary = () => {
     calories: targetCalories,
     protein: 150,
     carbs: 250,
-    fat: 65,
+    fat: 65
   };
-
   useEffect(() => {
     fetchProfile();
     fetchTodaySummary();
   }, []);
-
   const fetchProfile = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+      data: {
+        user
+      }
+    } = await supabase.auth.getUser();
     if (!user) return;
-
-    const { data } = await supabase
-      .from("profiles")
-      .select("target_calories")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
+    const {
+      data
+    } = await supabase.from("profiles").select("target_calories").eq("user_id", user.id).maybeSingle();
     if (data) {
       setTargetCalories(data.target_calories);
     }
   };
-
   const fetchTodaySummary = async () => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      const { data, error } = await supabase
-        .from('meals')
-        .select('calories, protein, carbs, fat')
-        .eq('meal_date', today);
-
+      const {
+        data,
+        error
+      } = await supabase.from('meals').select('calories, protein, carbs, fat').eq('meal_date', today);
       if (error) throw error;
-
       if (data) {
-        const totals = data.reduce(
-          (acc, meal) => ({
-            calories: acc.calories + Number(meal.calories || 0),
-            protein: acc.protein + Number(meal.protein || 0),
-            carbs: acc.carbs + Number(meal.carbs || 0),
-            fat: acc.fat + Number(meal.fat || 0),
-          }),
-          { calories: 0, protein: 0, carbs: 0, fat: 0 }
-        );
+        const totals = data.reduce((acc, meal) => ({
+          calories: acc.calories + Number(meal.calories || 0),
+          protein: acc.protein + Number(meal.protein || 0),
+          carbs: acc.carbs + Number(meal.carbs || 0),
+          fat: acc.fat + Number(meal.fat || 0)
+        }), {
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0
+        });
         setSummary(totals);
       }
     } catch (error) {
@@ -77,26 +72,23 @@ const TodaySummary = () => {
       setLoading(false);
     }
   };
-
-  const MacroCard = ({ 
-    icon: Icon, 
-    label, 
-    value, 
-    goal, 
-    unit, 
-    color 
-  }: { 
-    icon: any; 
-    label: string; 
-    value: number; 
-    goal: number; 
+  const MacroCard = ({
+    icon: Icon,
+    label,
+    value,
+    goal,
+    unit,
+    color
+  }: {
+    icon: any;
+    label: string;
+    value: number;
+    goal: number;
     unit: string;
     color: string;
   }) => {
-    const percentage = Math.min((value / goal) * 100, 100);
-    
-    return (
-      <Card className="p-4">
+    const percentage = Math.min(value / goal * 100, 100);
+    return <Card className="p-4">
         <div className="flex items-center gap-3 mb-3">
           <div className={`${color} p-2 rounded-lg`}>
             <Icon className="h-4 w-4" />
@@ -110,64 +102,26 @@ const TodaySummary = () => {
           </div>
           <Progress value={percentage} className="h-2" />
         </div>
-      </Card>
-    );
+      </Card>;
   };
-
   if (loading) {
-    return (
-      <div className="mb-8">
+    return <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">Today's Progress</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[1, 2, 3, 4].map((i) => (
-            <Card key={i} className="p-4 animate-pulse">
+          {[1, 2, 3, 4].map(i => <Card key={i} className="p-4 animate-pulse">
               <div className="h-20 bg-muted rounded" />
-            </Card>
-          ))}
+            </Card>)}
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="mb-8">
-      <h2 className="text-2xl font-semibold mb-4">Today's Progress</h2>
+  return <div className="mb-8">
+      <h2 className="text-2xl font-semibold mb-4">Today's MACROS</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <MacroCard
-          icon={Flame}
-          label="Calories"
-          value={summary.calories}
-          goal={goals.calories}
-          unit=" kcal"
-          color="bg-destructive text-destructive-foreground"
-        />
-        <MacroCard
-          icon={Beef}
-          label="Protein"
-          value={summary.protein}
-          goal={goals.protein}
-          unit="g"
-          color="bg-primary text-primary-foreground"
-        />
-        <MacroCard
-          icon={Sandwich}
-          label="Carbs"
-          value={summary.carbs}
-          goal={goals.carbs}
-          unit="g"
-          color="bg-warning text-warning-foreground"
-        />
-        <MacroCard
-          icon={Droplets}
-          label="Fat"
-          value={summary.fat}
-          goal={goals.fat}
-          unit="g"
-          color="bg-accent text-accent-foreground"
-        />
+        <MacroCard icon={Flame} label="Calories" value={summary.calories} goal={goals.calories} unit=" kcal" color="bg-destructive text-destructive-foreground" />
+        <MacroCard icon={Beef} label="Protein" value={summary.protein} goal={goals.protein} unit="g" color="bg-primary text-primary-foreground" />
+        <MacroCard icon={Sandwich} label="Carbs" value={summary.carbs} goal={goals.carbs} unit="g" color="bg-warning text-warning-foreground" />
+        <MacroCard icon={Droplets} label="Fat" value={summary.fat} goal={goals.fat} unit="g" color="bg-accent text-accent-foreground" />
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default TodaySummary;
