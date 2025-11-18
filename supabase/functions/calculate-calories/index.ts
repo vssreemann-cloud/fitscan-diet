@@ -71,7 +71,15 @@ Example format: {"calories": 2400}`;
       throw new Error("No response from AI");
     }
 
-    const result = JSON.parse(content.trim());
+    // Strip markdown code blocks if present
+    let cleanContent = content.trim();
+    if (cleanContent.startsWith('```json')) {
+      cleanContent = cleanContent.replace(/^```json\n/, '').replace(/\n```$/, '');
+    } else if (cleanContent.startsWith('```')) {
+      cleanContent = cleanContent.replace(/^```\n/, '').replace(/\n```$/, '');
+    }
+
+    const result = JSON.parse(cleanContent);
 
     return new Response(JSON.stringify(result), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
