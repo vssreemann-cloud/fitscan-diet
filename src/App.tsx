@@ -8,6 +8,7 @@ import AddMeal from "./pages/AddMeal";
 import Summary from "./pages/Summary";
 import Auth from "./pages/Auth";
 import ProfileSetup from "./pages/ProfileSetup";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile-setup" element={<ProfileSetup />} />
           <Route path="/" element={<Index />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/add-meal" element={<AddMeal />} />
           <Route path="/summary" element={<Summary />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, BarChart3, Utensils, LogOut } from "lucide-react";
+import { PlusCircle, BarChart3, Utensils, LogOut, User as UserIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { User } from "@supabase/supabase-js";
@@ -75,10 +75,16 @@ const Index = () => {
               </div>
               <p className="text-muted-foreground ml-14">Welcome back, {profile.name}!</p>
             </div>
-            <Button variant="outline" onClick={handleSignOut}>
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => navigate("/profile")}>
+                <UserIcon className="mr-2 h-4 w-4" />
+                Profile
+              </Button>
+              <Button variant="outline" onClick={handleSignOut}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            </div>
           </div>
         </header>
 
