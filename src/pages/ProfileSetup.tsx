@@ -19,6 +19,7 @@ const ProfileSetup = () => {
     age: "",
     gender: "",
     activity_level: "",
+    health_goal: "",
     target_calories: ""
   });
 
@@ -45,7 +46,7 @@ const ProfileSetup = () => {
   };
 
   const calculateIdealCalories = async () => {
-    if (!formData.weight || !formData.height || !formData.age || !formData.gender || !formData.activity_level) {
+    if (!formData.weight || !formData.height || !formData.age || !formData.gender || !formData.activity_level || !formData.health_goal) {
       toast.error("Please fill in all fields to calculate ideal calories");
       return;
     }
@@ -58,7 +59,8 @@ const ProfileSetup = () => {
           height: parseFloat(formData.height),
           age: parseInt(formData.age),
           gender: formData.gender,
-          activity_level: formData.activity_level
+          activity_level: formData.activity_level,
+          health_goal: formData.health_goal
         }
       });
 
@@ -93,6 +95,7 @@ const ProfileSetup = () => {
       age: formData.age ? parseInt(formData.age) : null,
       gender: formData.gender || null,
       activity_level: formData.activity_level || null,
+      health_goal: formData.health_goal || null,
       target_calories: formData.target_calories ? parseInt(formData.target_calories) : 2000
     });
 
@@ -190,6 +193,20 @@ const ProfileSetup = () => {
                   <SelectItem value="moderate">Moderate (exercise 3-5 days/week)</SelectItem>
                   <SelectItem value="active">Active (exercise 6-7 days/week)</SelectItem>
                   <SelectItem value="very_active">Very Active (intense exercise daily)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="health-goal">Health Goal</Label>
+              <Select value={formData.health_goal} onValueChange={(value) => setFormData(prev => ({ ...prev, health_goal: value }))}>
+                <SelectTrigger id="health-goal">
+                  <SelectValue placeholder="Select your goal" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="weight_loss">Weight Loss</SelectItem>
+                  <SelectItem value="maintenance">Maintenance</SelectItem>
+                  <SelectItem value="bulking">Bulking</SelectItem>
                 </SelectContent>
               </Select>
             </div>
