@@ -1,4 +1,5 @@
 # Welcome to THE PROJECT - FITSCAN 
+WEBSITE LINK- https://fitscan-diet.vercel.app/
 ## TEAM NAME- BYTE BEGINNERS 
 
 ## Project info
@@ -36,7 +37,7 @@ SOLUTION - FITSCAN is a calorie tracking application that utilizes artificial in
 -vercel
 
 
-**URL** preview : https://lovable.dev/projects/eea1a40c-3190-4ba9-8dfb-fa5e0d3104cd
+
 
 
 
