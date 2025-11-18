@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { weight, height, age, gender, activity_level } = await req.json();
+    const { weight, height, age, gender, activity_level, health_goal } = await req.json();
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -24,8 +24,14 @@ serve(async (req) => {
 - Age: ${age} years
 - Gender: ${gender}
 - Activity Level: ${activity_level}
+- Health Goal: ${health_goal}
 
 Use the Mifflin-St Jeor equation and activity multipliers to calculate TDEE (Total Daily Energy Expenditure).
+Then adjust based on the health goal:
+- weight_loss: Subtract 500 calories from TDEE for safe weight loss (1 lb per week)
+- maintenance: Use TDEE as is
+- bulking: Add 300-500 calories to TDEE for muscle gain
+
 Return ONLY a JSON object with the calculated calories (as an integer). No explanations.
 
 Example format: {"calories": 2400}`;
