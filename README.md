@@ -1,4 +1,5 @@
 # Welcome to THE PROJECT - FITSCAN 
+## TEAM NAME- BYTE BEGINNERS 
 
 ## Project info
 
